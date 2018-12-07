@@ -5,7 +5,7 @@ Semantic Segmentation of HyperSpectral Images using a U-Net with Separable Convo
 
 ## Features
 - HyperSpectral Images (HSI) are semantically segmented using two variants of U-Nets and their performance is comparaed.
-- Model A uses depthwise convolutions in the downsampling arm of the U-Net, and Model B uses convolutions in the downsampling arm of the U-Net. 
+- Model A uses depthwise separable convolutions in the downsampling arm of the U-Net, and Model B uses convolutions in the downsampling arm of the U-Net. 
 - Due to the lack of multiple HSI image and ground truth pairs, we train the models by extracting patches of the image. Here, patches are smaller square regions of the image. After training the model, we make predictions patch-wise. 
 - Patches are extracted using a stride of 1 for training. We used patches of size `patch_size = 4` (4x4 square regions) for our experiment.
 - We use the `sample-weight` feature offered by Keras to weight the classes in the loss function by their log frequency. We use this as there is a skew in the number of examples per class.
