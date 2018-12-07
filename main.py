@@ -1,6 +1,9 @@
+import os
 import pickle
 import numpy as np
+from collections import Counter
 from utils import load_data, mat2array
+from sklearn.metrics import cohen_kappa_score as kappa
 
 import keras.backend as K
 from keras.backend import clear_session
@@ -10,11 +13,15 @@ from keras.callbacks import ModelCheckpoint, Callback
 from keras.layers import Conv2DTranspose, Add, Input, Concatenate, Layer, SeparableConv2D
 from keras.layers import Dense, Activation, BatchNormalization, Dropout, LeakyReLU, Conv2D, Reshape
 
+import matplotlib.pyplot as plt
 
 # Indian_pines_corrected.mat
 # Indian_pines_gt.mat
 
 class statsLogger(Callback):
+    """
+    Saving loss and accuracy details to an array
+    """
     def __init__(self):
         self.logs = []
     def on_epoch_end(self, epoch, logs):
@@ -22,7 +29,12 @@ class statsLogger(Callback):
         self.logs.append(logs)
 
 class PixelSoftmax(Layer):
-    def __init__(self, axis=-1,**kwargs):
+    """
+    Pixelwise Softmax for Semantic Segmentation. Also known as
+    4D Softmax in some sources. Applies Softmax along the last
+    axis (-1 axis). 
+    """
+    def __init__(self, axis=-1, **kwargs):
         self.axis=axis
         super(PixelSoftmax, self).__init__(**kwargs)
 
@@ -38,8 +50,10 @@ class PixelSoftmax(Layer):
         return input_shape
 
 def conv_model(img):
-
-    ## Depthwise Size 4
+    """
+    U-Net model using vanilla convolutions for downsampling.
+    Uses patch_size = 4.
+    """
     x = Conv2D(64, kernel_size=(3,3), strides=(1,1), padding='same', name='conv1_2', use_bias=False)(img)
     x = BatchNormalization()(x)
     x = LeakyReLU()(x)
@@ -76,8 +90,10 @@ def conv_model(img):
     return x
 
 def separable_model(img):
-
-    ## Depthwise Size 4
+    """
+    U-Net model using depthwise convolutions for downsampling.
+    Uses patch_size = 4.
+    """
     x = SeparableConv2D(64, kernel_size=(3,3), strides=(1,1), padding='same', name='conv1_2', use_bias=False)(img)
     x = BatchNormalization()(x)
     x = LeakyReLU()(x)
@@ -114,7 +130,10 @@ def separable_model(img):
     return x
 
 def build_model(mode, input_shape):
-
+    """
+    Builds the model based on your choice of the mode
+    variable.
+    """
     clear_session()
 
     img = Input(shape = input_shape)
@@ -143,6 +162,8 @@ def train(mode):
     valY = np.reshape(valY, (-1, 16, 16))
     trainY = np.reshape(trainY, (-1, 16, 16))
 
+    # Applying sample weights
+    # TODO: More explanation
     for i in range(len(trainY)):
       array = trainY[i]
       temp_weight = []
@@ -159,10 +180,10 @@ def train(mode):
                            verbose = 1, 
                            monitor = 'val_loss')
     
-    model.compile(loss='categorical_crossentropy', 
-                  optimizer=opt, 
-                  metrics=['accuracy'], 
-                  sample_weight_mode="temporal")
+    model.compile(loss = 'categorical_crossentropy', 
+                  optimizer = opt, 
+                  metrics = ['accuracy'], 
+                  sample_weight_mode = "temporal")
     
     model.fit(trainX, 
               trainY, 
@@ -202,21 +223,44 @@ def inference(mode, weights):
     # Output after filtering 
     masked_output = (output_semantic * gt_mask)
 
+    plt.imsave('output.png', masked_output)
+
     count = 0
     total = 0
+    gt_without_test_label, output_without_test_label = [], []
+    classwise_prediction_frequency = [0 for _ in range(16)]
+
     for i in range(145):
         for j in range(145):
             if gt[i,j] != 0:
                 total += 1
                 if gt[i,j] == masked_output[i,j] :
                     count += 1
+                    classwise_prediction_frequency[gt[i,j] - 1] += 1
 
-    accuracy = count / total
+    for i, j in zip(gt.ravel(), masked_output.ravel()):
+        if i != 0:
+            gt_without_test_label.append(i)
+            output_without_test_label.append(j)
 
-    print('Accuracy = %.3f' % (accuracy * 100))
+    classwise_gt_frequency = [i for i in Counter(gt_without_test_label).values()]
 
+    classwise_gt_frequency = np.array(classwise_gt_frequency)
+    classwise_prediction_frequency = np.array(classwise_prediction_frequency)
+    
+    classwise_average_accuracy = classwise_prediction_frequency / classwise_gt_frequency
+
+    overall_acc = count / total
+    average_acc = np.mean(classwise_average_accuracy)
+    kappa_score = kappa(gt_without_test_label, output_without_test_label)
+
+    formatted_string = '\nOverall Accuracy = %.3f \nAverage Accuracy = %.3f \nKappa Score = %.3f \n'
+    print(formatted_string % (overall_acc * 100, average_acc * 100, kappa_score * 100))
+
+    print(classwise_prediction_frequency)
 
 if __name__ == '__main__':
 
     #train('separable')
-    inference('separable', 'separable.hdf5')
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+    inference('conv', 'balanced_conv.hdf5')
