@@ -57,182 +57,178 @@ The file `main.py` supports a few options, which are listed below:
 #### Tabulatation
 
 <table>
-  <thead>
-    <tr>
-      <th rowspan="2">Class Number</th>
-      <th rowspan="2">Class Name</th>
-      <th rowspan="2">Ground Truth Samples</th>
-      <th colspan="2">Model A</th>
-      <th colspan="2">Model B</th>
-    </tr>
-    <tr>
-      <td>Predicted Samples</td>
-      <td>Accuracy</td>
-      <td>Predicted Samples</td>
-      <td>Accuracy</td>
-    </tr>
-   </thead>
-   <tbody>
-    <tr>
-      <td>1</td>
-      <td>Alfalfa</td>
-      <td>46</td>
-      <td>34</td>
-      <td>73.91</td>
-      <td>31</td>
-      <td>67.39</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Corn notill</td>
-      <td>1428</td>
-      <td>1324</td>
-      <td>92.71</td>
-      <td>1333</td>
-      <td>93.35</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Corn mintill</td>
-      <td>830</td>
-      <td>759</td>
-      <td>91.44</td>
-      <td>704</td>
-      <td>84.82</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>Corn</td>
-      <td>237</td>
-      <td>189</td>
-      <td>79.74</td>
-      <td>198</td>
-      <td>83.54</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Grass pasture</td>
-      <td>483</td>
-      <td>448</td>
-      <td>92.75</td>
-      <td>434</td>
-      <td>89.85</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Grass trees</td>
-      <td>730</td>
-      <td>706</td>
-      <td>96.71</td>
-      <td>702</td>
-      <td>96.16</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Grass pasture mowed</td>
-      <td>28</td>
-      <td>28</td>
-      <td>100</td>
-      <td>28</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>Hay windrowed</td>
-      <td>478</td>
-      <td>472</td>
-      <td>98.74</td>
-      <td>472</td>
-      <td>98.74</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Oats</td>
-      <td>20</td>
-      <td>20</td>
-      <td>100</td>
-      <td>20</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>Soybean notill</td>
-      <td>972</td>
-      <td>855</td>
-      <td>87.96</td>
-      <td>850</td>
-      <td>87.44</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>Soybean mintill</td>
-      <td>2455</td>
-      <td>2306</td>
-      <td>93.93</td>
-      <td>2274</td>
-      <td>92.63</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>Soybean clean</td>
-      <td>593</td>
-      <td>523</td>
-      <td>88.2</td>
-      <td>530</td>
-      <td>89.38</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>Wheat</td>
-      <td>205</td>
-      <td>175</td>
-      <td>85.37</td>
-      <td>176</td>
-      <td>85.85</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>Woods</td>
-      <td>1265</td>
-      <td>1231</td>
-      <td>97.31</td>
-      <td>1231</td>
-      <td>97.31</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>Buildings Grass Trees Drives</td>
-      <td>386</td>
-      <td>386</td>
-      <td>100</td>
-      <td>386</td>
-      <td>100</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>Stone Steel Towers</td>
-      <td>93</td>
-      <td>89</td>
-      <td>95.7</td>
-      <td>91</td>
-      <td>97.85</td>
-    </tr>
-    <tr>
-      <td colspan="3">Overall Accuracy (OA)</td>
-      <td colspan="2">93.13</td>
-      <td colspan="2">92.3</td>
-    </tr>
-    <tr>
-      <td colspan="3">Average Accuracy (AA)</td>
-      <td colspan="2">92.16</td>
-      <td colspan="2">91.52</td>
-    </tr>
-    <tr>
-      <td colspan="3">Kappa Coefficient (K)</td>
-      <td colspan="2">92.18</td>
-      <td colspan="2">91.24</td>
-    </tr>
-  </tbody>
+  <tr>
+    <th rowspan="2">Class Number</th>
+    <th rowspan="2">Class Name</th>
+    <th rowspan="2">Ground Truth Samples</th>
+    <th colspan="2">Model A</th>
+    <th colspan="2">Model B</th>
+  </tr>
+  <tr>
+    <td>Predicted Samples</td>
+    <td>Accuracy</td>
+    <td>Predicted Samples</td>
+    <td>Accuracy</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Alfalfa</td>
+    <td>46</td>
+    <td>30</td>
+    <td>65.21</td>
+    <td>29</td>
+    <td>63.04</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Corn notill</td>
+    <td>1428</td>
+    <td>1343</td>
+    <td>94.05</td>
+    <td>1324</td>
+    <td>92.72</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Corn mintill</td>
+    <td>830</td>
+    <td>753</td>
+    <td>90.72</td>
+    <td>762</td>
+    <td>91.81</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Corn</td>
+    <td>237</td>
+    <td>189</td>
+    <td>79.75</td>
+    <td>186</td>
+    <td>78.48</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Grass pasture</td>
+    <td>483</td>
+    <td>449</td>
+    <td>92.96</td>
+    <td>439</td>
+    <td>90.89</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>Grass trees</td>
+    <td>730</td>
+    <td>717</td>
+    <td>98.22</td>
+    <td>710</td>
+    <td>97.26</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>Grass pasture mowed</td>
+    <td>28</td>
+    <td>28</td>
+    <td>100</td>
+    <td>28</td>
+    <td>100</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>Hay windrowed</td>
+    <td>478</td>
+    <td>476</td>
+    <td>99.58</td>
+    <td>473</td>
+    <td>98.95</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>Oats</td>
+    <td>20</td>
+    <td>20</td>
+    <td>100</td>
+    <td>7</td>
+    <td>35</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>Soybean notill</td>
+    <td>972</td>
+    <td>843</td>
+    <td>86.72</td>
+    <td>844</td>
+    <td>86.83</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>Soybean mintill</td>
+    <td>2455</td>
+    <td>2328</td>
+    <td>94.83</td>
+    <td>2311</td>
+    <td>94.13</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>Soybean clean</td>
+    <td>593</td>
+    <td>524</td>
+    <td>88.36</td>
+    <td>530</td>
+    <td>89.38</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>Wheat</td>
+    <td>205</td>
+    <td>175</td>
+    <td>85.37</td>
+    <td>176</td>
+    <td>85.85</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>Woods</td>
+    <td>1265</td>
+    <td>1246</td>
+    <td>98.50</td>
+    <td>1229</td>
+    <td>97.15</td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td>Buildings Grass Trees Drives</td>
+    <td>386</td>
+    <td>386</td>
+    <td>100</td>
+    <td>382</td>
+    <td>98.96</td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td>Stone Steel Towers</td>
+    <td>93</td>
+    <td>92</td>
+    <td>98.92</td>
+    <td>91</td>
+    <td>97.85</td>
+  </tr>
+  <tr>
+    <td colspan="3">Overall Accuracy (OA)</td>
+    <td colspan="2">93.66</td>
+    <td colspan="2">92.90</td>
+  </tr>
+  <tr>
+    <td colspan="3">Average Accuracy (AA)</td>
+    <td colspan="2">92.07</td>
+    <td colspan="2">87.39</td>
+  </tr>
+  <tr>
+    <td colspan="3">Kappa Coefficient (k)</td>
+    <td colspan="2">92.77</td>
+    <td colspan="2">91.91</td>
+  </tr>
 </table>
 
 ## References:
