@@ -5,7 +5,7 @@ Semantic Segmentation of HyperSpectral Images using a U-Net with Separable Convo
 
 ## Features
 - HyperSpectral Images (HSI) are semantically segmented using two variants of U-Nets and their performance is comparaed.
-- Model A uses depthwise separable convolutions in the downsampling arm of the U-Net, and Model B uses convolutions in the downsampling arm of the U-Net. 
+- **Model A** uses Depthwise Separable Convolutions in the downsampling arm of the U-Net, and **Model B** uses Convolutions in the downsampling arm of the U-Net. 
 - Due to the lack of multiple HSI image and ground truth pairs, we train the models by extracting patches of the image. Here, patches are smaller square regions of the image. After training the model, we make predictions patch-wise. 
 - Patches are extracted using a stride of 1 for training. We used patches of size `patch_size = 4` (4x4 square regions) for our experiment.
 - We use the `sample-weight` feature offered by Keras to weight the classes in the loss function by their log frequency. We use this as there is a skew in the number of examples per class.
@@ -33,17 +33,28 @@ wget http://www.ehu.eus/ccwintco/uploads/c/c4/Indian_pines_gt.mat
 3. Train the model using:
 ```
 python main.py \
---model separable \
+--model "Model A" \
 --mode train
 ```
+The file `main.py` supports a few options, which are listed below:
+- `--model`: (**required**) Choose between `Model A` and `Model B`.
+- `--mode`: (**required**) Choose between training (`train`) and inference (`infer`) modes.
+- `--weights`: (**required for inference only**) Path of the weights file for inference mode.
+- `--epochs`: Set the number of epochs. Default value is `100`.
+- `--batch_size`: Set the batch size. Default value is `200`.
+- `--lr`: Set the learning rate. Default value is `0.001`.
 
 ## Results
 
 ### Indian Pines Dataset
 
-#### Epoch vs Accuracy
-
 #### Output Maps
+|    Ground Truth   	|         Model A        	|         Model B         	|
+|:-----------------:	|:----------------------:	|:-----------------------:	|
+| ![GT](src/gt.png) 	| ![modelA](src/sep.png) 	| ![modelB](src/conv.png) 	|
+
+#### Epoch vs Accuracy
+<img width=70% height=70% src="/src/accfinal.png" alt="Plot"></img>
 
 #### Tabulatation
 
