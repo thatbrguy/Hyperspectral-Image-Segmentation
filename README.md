@@ -37,7 +37,7 @@ python main.py \
 --mode train
 ```
 The file `main.py` supports a few options, which are listed below:
-- `--model`: (**required**) Choose between `Model A` and `Model B`.
+- `--model`: (**required**) Choose between models `A` and `B`.
 - `--mode`: (**required**) Choose between training (`train`) and inference (`infer`) modes.
 - `--weights`: (**required for inference only**) Path of the weights file for inference mode.
 - `--epochs`: Set the number of epochs. Default value is `100`.
