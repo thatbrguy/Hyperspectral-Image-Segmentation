@@ -1,8 +1,6 @@
 # Hyperspectral-Image-Segmentation
 Semantic Segmentation of HyperSpectral Images using a U-Net with Separable Convolutions.
 
-#### WIP. This repository is incomplete.
-
 ## Features
 - HyperSpectral Images (HSI) are semantically segmented using two variants of U-Nets and their performance is comparaed.
 - **Model A** uses Depthwise Separable Convolutions in the downsampling arm of the U-Net, and **Model B** uses Convolutions in the downsampling arm of the U-Net. 
@@ -33,7 +31,7 @@ wget http://www.ehu.eus/ccwintco/uploads/c/c4/Indian_pines_gt.mat
 3. Train the model using:
 ```
 python main.py \
---model "Model A" \
+--model A \
 --mode train
 ```
 The file `main.py` supports a few options, which are listed below:
