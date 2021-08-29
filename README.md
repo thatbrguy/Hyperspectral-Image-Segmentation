@@ -1,6 +1,21 @@
 # Hyperspectral-Image-Segmentation
 Semantic Segmentation of HyperSpectral Images using a U-Net with Separable Convolutions.
 
+## IMPORTANT UPDATE
+**Please do not use this codebase for your experiments**. 
+
+In my opinion the results presented in this document is **not** a fair analysis for two reasons. 
+
+Reason one is that there is data leakage between the train and val sets. Since patches are created using stride 1, it means that some patches have partial overlap with few other patches. And also since synthetic patches are created using smaller patches, some common information maybe present across various patches. Since the general and synthetic patches are first created, then concatenated and then finally split into train and val splits, there is data leakage.
+
+Reason two is that I think the final performance mentioned in the document is over all pixels, which naturally would include the ones used for training as well. Hence the numbers may not be representative of the effectiveness of the models.
+
+In retrospect, I also think the idea of synthetic patches is **not good**. This is because the smaller patches that make up a synthetic patch belong to different parts of the full image and hence the spatial context within a synthetic patch may not be useful.
+
+Due to the above reasons, **please do not use this codebase**. Since this repo was created long ago I do not remember how/why things ended up this way. I wanted to post this update for quite a while now but I kept forgetting and/or postponing. I am truly sorry for the inconvenience.
+
+Currently there are no plans to resolve the aforementioned issues and hence the repository will be made read-only. Hence, once again, **please do not use this codebase** and I am truly sorry for the inconvenience. If you have any questions, please send me an email (email ID will be available in my profile).
+
 ## Features
 - HyperSpectral Images (HSI) are semantically segmented using two variants of U-Nets and their performance is comparaed.
 - **Model A** uses Depthwise Separable Convolutions in the downsampling arm of the U-Net, and **Model B** uses Convolutions in the downsampling arm of the U-Net. 
